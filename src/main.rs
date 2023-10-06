@@ -6,7 +6,6 @@ use serenity::model::gateway::Ready;
 use serenity::model::id::GuildId;
 use serenity::prelude::*;
 
-use dotenv::dotenv;
 use std::env;
 use std::error::Error;
 use serenity::builder::CreateEmbed;
@@ -55,8 +54,6 @@ impl EventHandler for Handler {
 
 #[tokio::main]
 async fn main() {
-    dotenv().ok();
-
     let token = env::var("DISCORD_TOKEN").expect("Expected a token in the environment");
 
     let mut client = Client::builder(token, GatewayIntents::empty())
