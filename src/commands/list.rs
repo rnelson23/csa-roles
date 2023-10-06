@@ -8,10 +8,12 @@ pub async fn run(ctx: &Context, command: &ApplicationCommandInteraction) -> Resu
     let roles = command.guild_id.unwrap().roles(&ctx.http).await?;
     let (_, top_role) = roles.iter().find(|(_, r)| r.name == "CSA Roles").unwrap();
     let mut description = String::new();
+    let mut count = 1;
 
-    for (i, (role_id, role)) in roles.iter().enumerate() {
+    for (role_id, role) in roles.iter() {
         if role.position < top_role.position && role_id.as_u64() != command.guild_id.unwrap().as_u64() {
-            description.push_str(&format!("{}. <@&{}>\n", i + 1, role.id));
+            description.push_str(&format!("{}. <@&{}>\n", count, role.id));
+            count += 1;
         }
     }
 
