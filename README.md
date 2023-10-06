@@ -22,6 +22,7 @@ found on the [Discord developer portal](https://discord.com/developers/applicati
 and the server ID can be found by enabling developer mode in Discord and
 right-clicking on the server icon.
 
+### Note
 The bot knows which roles can be added/removed based on the location of the
 "CSA Bot" role. All roles underneath the bot role in the role list can be
 added/removed by the bot.
