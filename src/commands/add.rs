@@ -10,15 +10,22 @@ pub async fn run(ctx: &Context, command: &ApplicationCommandInteraction) -> Resu
     let roles = command.guild_id.unwrap().roles(&ctx.http).await?;
     let (_, top_role) = roles.iter().find(|(_, r)| r.name == "CSA Roles").unwrap();
 
+    let mut member = command.guild_id.unwrap().member(&ctx.http, command.user.id).await?;
+
+    if member.roles.contains(&role.id) {
+        crate::reply_ephemeral(ctx, command, "You already have that role").await?;
+        return Ok(())
+    }
+
     if roles.get(&role.id).unwrap().position > top_role.position {
         crate::reply_ephemeral(ctx, command, "You can't add that role to yourself").await?;
         return Ok(())
     }
 
-    let mut member = command.guild_id.unwrap().member(&ctx.http, command.user.id).await?;
     member.add_role(&ctx.http, role.id).await?;
 
-    crate::reply(ctx, command, &format!("You have been given the <@&{}> role!", role.id)).await?;
+    crate::reply(ctx, command, "You have been given the role!").await?;
+    crate::edit_reply(ctx, command, &format!("You have been given the <@&{}> role!", role.id)).await?;
     Ok(())
 }
 

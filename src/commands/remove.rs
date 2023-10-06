@@ -24,7 +24,8 @@ pub async fn run(ctx: &Context, command: &ApplicationCommandInteraction) -> Resu
 
     member.remove_role(&ctx.http, role.id).await?;
 
-    crate::reply(ctx, command, &format!("You have removed the <@&{}> role!", role.id)).await?;
+    crate::reply(ctx, command, "You have been removed from the role!").await?;
+    crate::edit_reply(ctx, command, &format!("You have been removed from the <@&{}> role!", role.id)).await?;
     Ok(())
 }
 

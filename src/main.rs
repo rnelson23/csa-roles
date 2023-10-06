@@ -83,6 +83,20 @@ async fn reply(ctx: &Context, command: &ApplicationCommandInteraction, content: 
     Ok(())
 }
 
+async fn edit_reply(ctx: &Context, command: &ApplicationCommandInteraction, content: &str) -> Result<(), Box<dyn Error>> {
+    if let Err(why) = command
+        .edit_original_interaction_response(&ctx.http, |response| {
+            response
+                .content(content)
+        })
+        .await
+    {
+        return Err(why.into());
+    }
+
+    Ok(())
+}
+
 async fn reply_embed(ctx: &Context, command: &ApplicationCommandInteraction, embed: CreateEmbed) -> Result<(), Box<dyn Error>> {
     if let Err(why) = command
         .create_interaction_response(&ctx.http, |response| {
