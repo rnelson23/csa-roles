@@ -24,5 +24,5 @@ right-clicking on the server icon.
 
 ### Note
 The bot knows which roles can be added/removed based on the location of the
-"CSA Bot" role. All roles underneath the bot role in the role list can be
+"CSA Roles" role. All roles underneath the bot role in the role list can be
 added/removed by the bot.
