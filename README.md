@@ -1,7 +1,5 @@
 # CSA Roles Bot
 
----
-
 ## About
 This Discord bot is made to replace the existing role selection bot in
 SUNY Oswego's Computer Science Association Discord server. It allows users
