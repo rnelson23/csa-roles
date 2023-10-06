@@ -103,6 +103,23 @@ async fn reply_embed(ctx: &Context, command: &ApplicationCommandInteraction, emb
     Ok(())
 }
 
+async fn reply_ephemeral(ctx: &Context, command: &ApplicationCommandInteraction, content: &str) -> Result<(), Box<dyn Error>> {
+    if let Err(why) = command
+        .create_interaction_response(&ctx.http, |response| {
+            response
+                .kind(InteractionResponseType::ChannelMessageWithSource)
+                .interaction_response_data(|message| {
+                    message.content(content).ephemeral(true)
+                })
+        })
+        .await
+    {
+        return Err(why.into());
+    }
+
+    Ok(())
+}
+
 fn get_role_option(command: &ApplicationCommandInteraction, index: usize) -> Option<&Role> {
     match command.data.options.get(index) {
         Some(option) => match option.resolved.as_ref() {

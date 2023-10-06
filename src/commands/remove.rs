@@ -13,12 +13,12 @@ pub async fn run(ctx: &Context, command: &ApplicationCommandInteraction) -> Resu
     let mut member = command.guild_id.unwrap().member(&ctx.http, command.user.id).await?;
 
     if !member.roles.contains(&role.id) {
-        crate::reply(ctx, command, "You don't have that role").await?;
+        crate::reply_ephemeral(ctx, command, "You don't have that role").await?;
         return Ok(())
     }
 
     if roles.get(&role.id).unwrap().position > top_role.position {
-        crate::reply(ctx, command, "You can't remove that role from yourself").await?;
+        crate::reply_ephemeral(ctx, command, "You can't remove that role from yourself").await?;
         return Ok(())
     }
 

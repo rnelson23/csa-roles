@@ -11,7 +11,7 @@ pub async fn run(ctx: &Context, command: &ApplicationCommandInteraction) -> Resu
     let (_, top_role) = roles.iter().find(|(_, r)| r.name == "CSA Roles").unwrap();
 
     if roles.get(&role.id).unwrap().position > top_role.position {
-        crate::reply(ctx, command, "You can't add that role to yourself").await?;
+        crate::reply_ephemeral(ctx, command, "You can't add that role to yourself").await?;
         return Ok(())
     }
 
